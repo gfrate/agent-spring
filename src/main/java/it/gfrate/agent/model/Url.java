@@ -21,6 +21,12 @@ public class Url {
     public Url() {
     }
 
+    public Url(String originalUrl, String shortenedUrl, Date createdAt) {
+        this.originalUrl = originalUrl;
+        this.shortenedUrl = shortenedUrl;
+        this.createdAt = createdAt;
+    }
+
     public Url(Long id, String originalUrl, String shortenedUrl, Date createdAt) {
         this.id = id;
         this.originalUrl = originalUrl;
