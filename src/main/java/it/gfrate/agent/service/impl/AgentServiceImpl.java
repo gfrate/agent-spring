@@ -3,6 +3,7 @@ package it.gfrate.agent.service.impl;
 import it.gfrate.agent.Utils;
 import it.gfrate.agent.model.Url;
 import it.gfrate.agent.model.UrlRequest;
+import it.gfrate.agent.model.UrlResponse;
 import it.gfrate.agent.repository.AgentRepository;
 import it.gfrate.agent.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,17 @@ public class AgentServiceImpl implements AgentService {
     private AgentRepository agentRepository;
 
     @Override
-    public void createShortUrl(UrlRequest urlRequest) {
+    public UrlResponse createShortUrl(UrlRequest urlRequest) {
         String url = urlRequest.getOriginalUrl();
 
-        if(url != null || !url.isBlank()) {
-            Url generatedUrl = new Url(url, Utils.encodeUrl(url), new Date());
+        if(url.isEmpty())
+            return new UrlResponse(false, "URL is not valid.");
 
-            agentRepository.save(generatedUrl);
-        }
+        String encodedUrl = Utils.encodeUrl(url);
+        Url generatedUrl = new Url(url, encodedUrl, new Date());
+
+        agentRepository.save(generatedUrl);
+
+        return new UrlResponse(true, encodedUrl);
     }
 }
