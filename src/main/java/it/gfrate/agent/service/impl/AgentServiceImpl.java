@@ -31,4 +31,9 @@ public class AgentServiceImpl implements AgentService {
 
         return new UrlResponse(true, encodedUrl);
     }
+
+    @Override
+    public String getOriginalUrl(String shortenedUrl) {
+        return agentRepository.findByShortenedUrl(shortenedUrl).getOriginalUrl();
+    }
 }

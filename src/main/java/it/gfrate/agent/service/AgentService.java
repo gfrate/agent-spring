@@ -5,4 +5,5 @@ import it.gfrate.agent.model.UrlRequest;
 
 public interface AgentService {
     UrlResponse createShortUrl(UrlRequest urlRequest);
+    String getOriginalUrl(String shortenedUrl);
 }
