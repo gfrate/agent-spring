@@ -6,4 +6,5 @@ import it.gfrate.agent.model.Url;
 
 @Repository
 public interface AgentRepository extends JpaRepository<Url, Long> {
+    Url findByShortenedUrl(String url);
 }
