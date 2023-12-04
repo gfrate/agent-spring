@@ -22,7 +22,7 @@ public class AgentServiceImpl implements AgentService {
     public UrlResponse createShortUrl(UrlRequest urlRequest) {
         String url = urlRequest.getOriginalUrl();
 
-        if(url.isEmpty())
+        if(!Utils.isUrlValid(url))
             return new UrlResponse(false, "URL is not valid.");
 
         String encodedUrl = Utils.encodeUrl(url);
