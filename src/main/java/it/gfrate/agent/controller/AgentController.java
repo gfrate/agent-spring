@@ -22,4 +22,9 @@ public class AgentController {
     public RedirectView getOriginalUrl(@PathVariable("shortenedUrl") String shortenedUrl) {
         return new RedirectView(agentService.getOriginalUrl(shortenedUrl));
     }
+
+    @DeleteMapping("/{id}")
+    public UrlResponse deleteOriginalUrl(@PathVariable("id") Long id) {
+        return agentService.deleteShortUrl(id);
+    }
 }

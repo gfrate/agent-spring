@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service("agentServiceImpl")
 public class AgentServiceImpl implements AgentService {
@@ -35,5 +36,16 @@ public class AgentServiceImpl implements AgentService {
     @Override
     public String getOriginalUrl(String shortenedUrl) {
         return agentRepository.findByShortenedUrl(shortenedUrl).getOriginalUrl();
+    }
+
+    @Override
+    public UrlResponse deleteShortUrl(Long id) {
+        Optional<Url> url = agentRepository.findById(id);
+
+        if(url.isEmpty())
+            return new UrlResponse(false, "URL not found.");
+
+        agentRepository.deleteById(id);
+        return new UrlResponse(true, "URL (" + id + ") deleted.");
     }
 }
